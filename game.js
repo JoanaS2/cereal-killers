@@ -67,11 +67,11 @@ let questions = [{
   },
   {
     question: "How many bones does a shark have?",
-    choice1: "50",
-    choice2: "0",
-    choice3: "150",
-    choice4: "100",
-    answer: 2
+    choice1: "0",
+    choice2: "50",
+    choice3: "100",
+    choice4: "150",
+    answer: 1
   },
   {
     question: "What is the largest continent?",
