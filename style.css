@@ -168,3 +168,17 @@ h3 {
 .hud-main-text {
   text-align: center;
 }
+
+#progressBar {
+  width: 20rem;
+  height: 4rem;
+  border: 0.3rem solid #ff00a0;
+  margin-top: 2rem;
+
+}
+
+#progressBarFull {
+  height: 3.4rem;
+  background-color: #ff00a0;
+  width: 0%;
+}
