@@ -144,3 +144,11 @@ h3 {
   color: #333;
   width: 100%;
 }
+
+.correct {
+  background-color: green;
+}
+
+.incorrect {
+  background-color: #dc3545;
+}
