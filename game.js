@@ -17,6 +17,49 @@ let availableQuestions = [];
 const CORRECT_BONUS = 5;
 const MAX_QUESTIONS = 12;
 
+// Function to toggle blur effect on the image
+function toggleImageBlur() {
+  isImageBlurred = !isImageBlurred;
+  const questionImage = document.getElementById('questionImage');
+  if (isImageBlurred) {
+    questionImage.classList.add('blurred'); // 
+  } else {
+    questionImage.classList.remove('blurred'); // Remove blur effect
+  }
+}
+
+// Event listener to toggle blur effect when the image overlay is clicked
+imageOverlay.addEventListener("click", toggleImageBlur);
+
+
+// Function to create image overlays
+function createImageOverlay(imageURL) {
+  const imageOverlay = document.createElement("div");
+  imageOverlay.classList.add("image-overlay");
+
+  // Add event listener to toggle blur effect
+  imageOverlay.addEventListener("click", () => {
+    isImageBlurred = !isImageBlurred;
+    imageContainer.classList.toggle("blurred");
+  });
+
+  // Append the image overlay to its container
+  imageContainer.appendChild(imageOverlay);
+}
+
+// Function to generate questions with images
+function generateQuestions() {
+  for (let i = 0; i < questions.length; i++) {
+    const currentQuestion = questions[i];
+    const imageURL = currentQuestion.image;
+
+    // Generate HTML for question and choices
+
+    // Create image overlay dynamically
+    createImageOverlay(imageURL);
+  }
+}
+
 // event listener to toggle blue effect 
 imageOverlay.addEventListener("click", () => {
   isImageBlurred = !isImageBlurred;
@@ -146,11 +189,37 @@ function shuffle(array) {
 }
 
 function startGame() {
+
   questionCounter = 0;
   score = 0;
   availableQuestions = [...questions];
   shuffle(availableQuestions);
   getNewQuestion();
+}
+
+// Add this function to safely create and append image elements
+// function createImageElement(imageURL) {
+//   const imgElement = document.createElement('img');
+//   imgElement.src = imageURL;
+//   imgElement.alt = 'Question Image';
+//   imageContainer.appendChild(imgElement);
+// }
+// Function to create and append image elements safely
+function createImageElement(imageURL) {
+  // Check if an image element already exists, if so, remove it
+  const existingImage = imageContainer.querySelector('img');
+  if (existingImage) {
+    imageContainer.removeChild(existingImage);
+  }
+
+  // Create a new image element
+  const imgElement = document.createElement('img');
+  imgElement.src = imageURL;
+  imgElement.alt = 'Question Image';
+
+  // Append the new image element to the container
+  imageContainer.appendChild(imgElement);
+  imgElement.addEventListener("click", toggleImageBlur);
 }
 
 function getNewQuestion() {
@@ -168,8 +237,24 @@ function getNewQuestion() {
   // Add blur effect to image
   imageContainer.classList.add("blurred");
 
+  // createImageElement(currentQuestion.image);
+
   // const imageContainer = document.querySelector(".image-container");
-  imageContainer.innerHTML = `<img src="${currentQuestion.image}" alt="Question Image">`;
+  // imageContainer.innerHTML = `<img src="${currentQuestion.image}" alt="Question Image">`;
+
+
+  // Call the function to create and append image elements safely
+  // createImageElement(currentQuestion.image);
+
+  const questionImage = document.querySelector("#imageContainer img");
+  questionImage.addEventListener("click", toggleImageBlur);
+
+  questionImage.style.filter = "blur(5px)";
+  // Add event listener to toggle blur effect on the image
+
+
+
+  questionImage.src = currentQuestion.image;
 
   choices.forEach(choice => {
     const number = choice.dataset["number"];
@@ -197,7 +282,6 @@ choices.forEach(choice => {
       // Show the correct answer
       const correctChoice = choices.find(choice => choice.dataset["number"] == currentQuestion.answer);
       correctChoice.parentElement.classList.add('correct');
-
       selectedChoice.parentElement.classList.add('incorrect');
     }
 
@@ -208,13 +292,26 @@ choices.forEach(choice => {
       // Remove highlighting of the correct answer
       const correctChoice = choices.find(choice => choice.dataset["number"] == currentQuestion.answer);
       correctChoice.parentElement.classList.remove('correct');
-      getNewQuestion();
+      // getNewQuestion();
       // Remove blur effect when the user selects an answer
       imageContainer.classList.remove("blurred");
     }, 1000)
   });
 });
 
+// Add an event listener to the next button
+const nextButton = document.getElementById("nextButton");
+nextButton.addEventListener("click", nextQuestion);
+
+// Function to proceed to the next question
+function nextQuestion() {
+  if (!acceptingAnswers) return;
+
+  acceptingAnswers = false;
+  getNewQuestion();
+  // Remove blur effect when proceeding to the next question
+  imageContainer.classList.remove("blurred");
+}
 
 function incrementScore(num) {
   score += num;

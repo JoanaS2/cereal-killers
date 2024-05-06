@@ -55,6 +55,7 @@ h3 {
 
 .content-wrapper {
   padding: 1rem;
+
 }
 
 .choices-container {
@@ -78,6 +79,7 @@ h3 {
   border: solid 2px #ff00a0;
   /* border-radius: 4px 20px; */
   /* Adjust padding as needed */
+
 }
 
 .image-overlay {
@@ -102,10 +104,14 @@ h3 {
   opacity: 0.7;
 }
 
-.blurred {
+/* .blurred {
   filter: blur(5px);
   /* Adjust the blur level as needed */
-}
+
+/* 
+.blurred img {
+  filter: blur(5px);
+} */
 
 #game {
   display: flex;
@@ -139,6 +145,19 @@ h3 {
 
 .hidden {
   display: none;
+}
+
+.next-btn {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+  width: 15rem;
+  text-align: center;
+  border: 0.1rem solid #a743dd;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: #005678;
+
+
 }
 
 .btn {
@@ -182,6 +201,7 @@ h3 {
   border: 0.1rem solid rgba(86, 165, 235, 0.25);
   background-color: white;
   align-items: center;
+  /* border: solid 2px #ff00a0; */
 
 
 
@@ -212,7 +232,12 @@ h3 {
   height: 255px;
   object-fit: cover;
 
+
+
+
+
 }
+
 
 .correct {
   background-color: #39ff14;
